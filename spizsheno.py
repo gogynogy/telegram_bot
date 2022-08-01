@@ -24,11 +24,11 @@ def start(messege):
 def bot_messege(messege):
     if messege.text == 'menu':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        item1 = types.KeyboardButton('dick')
+        item1 = types.KeyboardButton('заказать наличку')
         item2 = types.KeyboardButton('boobs')
         markup.add(item1, item2)
         bot.send_message(messege.chat.id, 'menu', reply_markup=markup)
-    elif messege.text == 'boobs':
+    elif messege.text == 'заказать наличку':
         gif = open('221928.gif', 'rb')
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         item1 = types.KeyboardButton('menu')
