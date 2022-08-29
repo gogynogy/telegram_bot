@@ -91,9 +91,33 @@ async def SendMessegeAnswer(target, message, exchangeNum, text):
 @dispatcher.message_handler(commands=["start"])
 async def begin(message: types.Message):
     if message.chat.id == id_egor or message.chat.id == id_gosha:
-        await bot.send_message(message.chat.id, f"привет. трудяги")
+        markup = InlineKeyboardMarkup()
+        button1 = InlineKeyboardButton("Создать сделку 👋", callback_data="NewSdelka")
+        button2 = InlineKeyboardButton("жопа", callback_data="button2")
+        markup.add(button1, button2)
+        await bot.send_message(message.chat.id, f"привет. трудяги", reply_markup=markup)
     else:
         await bot.send_message(message.chat.id, f"текст про то, что умеет бот")
+
+@dispatcher.callback_query_handler(lambda c: c.data == "NewSdelka")
+async def reakcia_na_knopku(call: types.callback_query):
+    text = ['@Клиент', 'локация', 'сумма в стартовой валюте', 'стартовая валюта', '@', 'курс', '=', 'сумма обмена',
+            'валюта обмена', 'способ платежа', 'контрагент']
+    markup = InlineKeyboardMarkup()
+    button1 = InlineKeyboardButton("клиент", callback_data="createClient")
+    button2 = InlineKeyboardButton("локация", callback_data="button1")
+    button3 = InlineKeyboardButton("старт сумм", callback_data="button1")
+    button4 = InlineKeyboardButton("старт валюта", callback_data="button1")
+    button5 = InlineKeyboardButton("курс", callback_data="button1")
+    button6 = InlineKeyboardButton("сумма обмена", callback_data="button1")
+    button7 = InlineKeyboardButton("валюта обмена", callback_data="button1")
+    button8 = InlineKeyboardButton("способ платежа", callback_data="button1")
+    button9 = InlineKeyboardButton("контрагент", callback_data="button1")
+    button10 = InlineKeyboardButton("отправить сделку", callback_data="button1")
+    markup.add(button1, button2, button3, button4, button5, button6, button7, button8, button9, button10)
+
+    await bot.answer_callback_query(call.id)
+    await bot.send_message(call.message.chat.id, text, reply_markup=markup)
 
 
 @dispatcher.message_handler(content_types="text")
